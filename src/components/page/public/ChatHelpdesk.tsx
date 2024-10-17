@@ -103,6 +103,14 @@ const ChatHelpdesk: React.FC = () => {
     }
   };
 
+  const handleGoBack = () => {
+    // Mengatur ulang state untuk kembali ke pemilihan FAQ
+    setFaqSelected(false);
+    setIsQASession(false);
+    setFaqTopic('');
+    setMessages([]);
+  };
+
   return (
     <Layout>
       <div className="chat-container">
@@ -124,8 +132,13 @@ const ChatHelpdesk: React.FC = () => {
             ))}
           </div>
         ) : (
-          // Jika FAQ dan Q&A sudah selesai, tampilkan sesi chat
+          // Tampilkan Q&A dan sesi chat
           <>
+            <div className="chat-actions">
+              <Button variant="secondary" onClick={handleGoBack} className="mb-3">
+                Kembali
+              </Button>
+            </div>
             <ListGroup className="chat-box">
               {messages.map((msg, index) => (
                 <ListGroup.Item
