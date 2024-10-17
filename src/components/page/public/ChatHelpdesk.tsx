@@ -1,16 +1,50 @@
 // src/pages/ChatHelpdesk.tsx
 import React, { useState } from 'react';
-import { Button, Form, FormControl, InputGroup, ListGroup } from 'react-bootstrap';
-import '../../assets/style.css';
+import { Button, FormControl, InputGroup, ListGroup } from 'react-bootstrap';
+import Layout from '../../main/Layout';
+import '../../../assets/style.css';
 
 interface Message {
   sender: 'user' | 'helpdesk';
   text: string;
 }
 
+// Data dummy untuk FAQ
+const faqData = [
+  {
+    topic: 'Layanan Pembuatan Web',
+    qna: [
+      {
+        question: 'Layanan aplikasi terdiri dari apa?',
+        answer: '1. Pengajuan Pembuatan web 2. Pengajuan Pembaruan web 3. Laporan Kendala'
+      },
+      {
+        question: 'Bagaimana cara pengajuan Pembuatan web?',
+        answer: '1. Login baba dengan bisma lalu pilih ajukan dan pilih kategori layanan aplikasi dan pilih sub kategori pengajuan pembuatan web'
+      }
+    ]
+  },
+  {
+    topic: 'Layanan Subdomain',
+    qna: [
+      {
+        question: 'Apa itu layanan subdomain?',
+        answer: 'Layanan subdomain memungkinkan Anda untuk memiliki subdomain kustom untuk situs Anda, seperti support.domainanda.com.'
+      },
+      {
+        question: 'Bagaimana cara mendaftarkan subdomain?',
+        answer: 'Hubungi tim IT kami dengan memberikan nama subdomain yang diinginkan dan detail lainnya.'
+      }
+    ]
+  }
+];
+
 const ChatHelpdesk: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
+  const [faqSelected, setFaqSelected] = useState(false);
+  const [isQASession, setIsQASession] = useState(false);
+  const [faqTopic, setFaqTopic] = useState('');
 
   const handleSendMessage = () => {
     if (input.trim() === '') return;
@@ -19,7 +53,6 @@ const ChatHelpdesk: React.FC = () => {
     setMessages([...messages, newMessage]);
     setInput('');
 
-    // Mock helpdesk response
     setTimeout(() => {
       const helpdeskResponse: Message = { sender: 'helpdesk', text: 'Terima kasih, kami akan segera membantu!' };
       setMessages((prevMessages) => [...prevMessages, helpdeskResponse]);
@@ -32,31 +65,92 @@ const ChatHelpdesk: React.FC = () => {
     }
   };
 
+  const handleSelectFAQ = (faqTopic: string) => {
+    setFaqSelected(true);
+    setIsQASession(true);
+    setFaqTopic(faqTopic);
+
+    const initialMessage: Message = {
+      sender: 'helpdesk',
+      text: `Anda memilih topik: ${faqTopic}. Berikut adalah beberapa informasi terkait:`
+    };
+    setMessages([initialMessage]);
+
+    // Tampilkan Q&A dengan data dummy tanpa jeda
+    displayQA(faqTopic);
+  };
+
+  const displayQA = (faqTopic: string) => {
+    const topicData = faqData.find((topic) => topic.topic === faqTopic);
+
+    if (topicData) {
+      const newMessages: Message[] = topicData.qna.flatMap((qa) => [
+        { sender: 'helpdesk', text: `Q: ${qa.question}` },
+        { sender: 'helpdesk', text: `A: ${qa.answer}` }
+      ]);
+
+      // Tambahkan semua Q&A sekaligus
+      setMessages((prevMessages) => [...prevMessages, ...newMessages]);
+
+      // Tambahkan pesan untuk memulai sesi chat setelah semua Q&A ditampilkan
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { sender: 'helpdesk', text: 'Sekarang Anda bisa memulai sesi chat dengan kami. Silakan ketik pesan Anda.' }
+      ]);
+
+      // Setelah semua Q&A selesai, ubah isQASession menjadi false untuk melanjutkan sesi chat
+      setIsQASession(false);
+    }
+  };
+
   return (
-    <div className="chat-container">
-      <h2 className="text-center">Helpdesk Chat</h2>
-      <ListGroup className="chat-box">
-        {messages.map((msg, index) => (
-          <ListGroup.Item
-            key={index}
-            className={msg.sender === 'user' ? 'user-message' : 'helpdesk-message'}
-          >
-            {msg.text}
-          </ListGroup.Item>
-        ))}
-      </ListGroup>
-      <InputGroup className="chat-input">
-        <FormControl
-          placeholder="Ketik pesan..."
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={handleEnterKey}
-        />
-        <Button variant="primary" onClick={handleSendMessage}>
-          Kirim
-        </Button>
-      </InputGroup>
-    </div>
+    <Layout>
+      <div className="chat-container">
+        <h2 className="text-center">Helpdesk Chat</h2>
+        
+        {/* Tampilkan FAQ jika belum ada yang dipilih */}
+        {!faqSelected ? (
+          <div className="faq-container">
+            <h3>Pilih Topik FAQ:</h3>
+            {faqData.map((item, index) => (
+              <Button
+                key={index}
+                variant="outline-primary"
+                className="faq-button"
+                onClick={() => handleSelectFAQ(item.topic)}
+              >
+                {item.topic}
+              </Button>
+            ))}
+          </div>
+        ) : (
+          // Jika FAQ dan Q&A sudah selesai, tampilkan sesi chat
+          <>
+            <ListGroup className="chat-box">
+              {messages.map((msg, index) => (
+                <ListGroup.Item
+                  key={index}
+                  className={msg.sender === 'user' ? 'user-message' : 'helpdesk-message'}
+                >
+                  {msg.text}
+                </ListGroup.Item>
+              ))}
+            </ListGroup>
+            <InputGroup className="chat-input">
+              <FormControl
+                placeholder="Ketik pesan..."
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={handleEnterKey}
+              />
+              <Button variant="primary" onClick={handleSendMessage}>
+                Kirim
+              </Button>
+            </InputGroup>
+          </>
+        )}
+      </div>
+    </Layout>
   );
 };
 

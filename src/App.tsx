@@ -11,14 +11,14 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './components/page/public/HomePage';
 import HelpdeskButton from './components/main/HelpdeskButton';
-// import ServicesPage from './page/ServicesPage';
+import ChatHelpdesk from './components/page/public/ChatHelpdesk';
 
-const App: React.FC = () => {
+function App(){
   return (
     <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        {/* <Route path="/layanan" element={<ServicesPage />} /> */}
+        <Route path="/helpdesk" element={<ChatHelpdesk />} />
       </Routes>
       <HelpdeskButton/>
     </Router>

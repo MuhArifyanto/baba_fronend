@@ -23,8 +23,6 @@ const ModalLogin: React.FC<ModalLoginProps> = ({ isOpen, toggle }) => {
   const [captchaText, setCaptchaText] = useState(generateRandomString(6));
   const [captchaInput, setCaptchaInput] = useState('');
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [backdrop, setBackdrop] = useState(true);
-  const [keyboard, setKeyboard] = useState(true);
   
   const drawCaptcha = (text: string) => {
     const canvas = canvasRef.current;
