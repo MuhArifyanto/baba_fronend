@@ -1,9 +1,9 @@
-// src/components/ModalLogin.tsx
 import React, { useState, useEffect, useRef } from 'react';
 import { Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import Swal from 'sweetalert2';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import '../../assets/style.css';
+import DOMPurify from 'dompurify';
 
 interface ModalLoginProps {
   isOpen: boolean;
@@ -89,7 +89,13 @@ const ModalLogin: React.FC<ModalLoginProps> = ({ isOpen, toggle }) => {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (captchaInput !== captchaText) {
+
+    // Sanitasi input sebelum validasi atau pengiriman
+    const sanitizedCaptchaInput = DOMPurify.sanitize(captchaInput);
+    const usernameInput = DOMPurify.sanitize((document.getElementById('username') as HTMLInputElement).value);
+    const passwordInput = DOMPurify.sanitize((document.getElementById('password') as HTMLInputElement).value);
+
+    if (sanitizedCaptchaInput !== captchaText) {
       Swal.fire({
         icon: 'error',
         title: 'Captcha tidak valid!',
@@ -98,6 +104,10 @@ const ModalLogin: React.FC<ModalLoginProps> = ({ isOpen, toggle }) => {
       });
       return;
     }
+
+    // Simulasi penyimpanan token di cookies (untuk penyimpanan sebenarnya, harus dilakukan di server dengan HttpOnly)
+    document.cookie = `authToken=${generateRandomString(30)}; path=/;`;
+
     Swal.fire({
       icon: 'success',
       title: 'Login berhasil!',
