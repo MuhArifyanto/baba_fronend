@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import Swal from 'sweetalert2';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import '../../assets/style.css';
 import DOMPurify from 'dompurify';
+import CaptchaCanvas from '../main/CaptchaCanvas';
 
 interface ModalLoginProps {
   isOpen: boolean;
@@ -19,56 +20,11 @@ const generateRandomString = (length: number) => {
   return result;
 };
 
-const ModalLogin: React.FC<ModalLoginProps> = ({ isOpen, toggle }) => {
+function ModalLogin(props: ModalLoginProps) {
+  const { isOpen, toggle } = props; // Destructuring dilakukan di sini
+
   const [captchaText, setCaptchaText] = useState(generateRandomString(6));
   const [captchaInput, setCaptchaInput] = useState('');
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  
-  const drawCaptcha = (text: string) => {
-    const canvas = canvasRef.current;
-    if (canvas) {
-      const ctx = canvas.getContext('2d');
-      if (ctx) {
-        canvas.width = 120;
-        canvas.height = 60;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        // Membuat latar belakang dengan noise
-        for (let i = 0; i < canvas.width; i++) {
-          for (let j = 0; j < canvas.height; j++) {
-            const gray = Math.floor(Math.random() * 255);
-            ctx.fillStyle = `rgba(${gray}, ${gray}, ${gray}, 0.95)`;
-            ctx.fillRect(i, j, 1, 1);
-          }
-        }
-
-        ctx.filter = 'blur(10000px)';
-        ctx.fillStyle = '#e0e0e0';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        ctx.filter = 'none';
-        ctx.font = '26px Arial';
-        ctx.fillStyle = '#000';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        const x = canvas.width / 2;
-        const y = canvas.height / 2;
-
-        ctx.save();
-        ctx.translate(x, y);
-        ctx.rotate(Math.random() * 0.1 - 0.05);
-        ctx.scale(1, 1.1);
-        ctx.fillText(text, 0, 0);
-        ctx.restore();
-      }
-    }
-  };
-
-  useEffect(() => {
-    if (isOpen) {
-      setTimeout(() => drawCaptcha(captchaText), 100);
-    }
-  }, [isOpen, captchaText]);
 
   const refreshCaptcha = () => {
     const newCaptcha = generateRandomString(6);
@@ -90,7 +46,6 @@ const ModalLogin: React.FC<ModalLoginProps> = ({ isOpen, toggle }) => {
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Sanitasi input sebelum validasi atau pengiriman
     const sanitizedCaptchaInput = DOMPurify.sanitize(captchaInput);
     const usernameInput = DOMPurify.sanitize((document.getElementById('username') as HTMLInputElement).value);
     const passwordInput = DOMPurify.sanitize((document.getElementById('password') as HTMLInputElement).value);
@@ -105,7 +60,6 @@ const ModalLogin: React.FC<ModalLoginProps> = ({ isOpen, toggle }) => {
       return;
     }
 
-    // Simulasi penyimpanan token di cookies (untuk penyimpanan sebenarnya, harus dilakukan di server dengan HttpOnly)
     document.cookie = `authToken=${generateRandomString(30)}; path=/;`;
 
     Swal.fire({
@@ -138,10 +92,7 @@ const ModalLogin: React.FC<ModalLoginProps> = ({ isOpen, toggle }) => {
           <FormGroup>
             <Label for="captcha">Captcha</Label>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <canvas
-                ref={canvasRef}
-                style={{ display: 'block', border: '1px solid #ccc' }}
-              />
+              <CaptchaCanvas text={captchaText} />
               <Button type="button" color="success" onClick={refreshCaptcha} size='sm'>
                 <RefreshIcon />
               </Button>
@@ -163,6 +114,6 @@ const ModalLogin: React.FC<ModalLoginProps> = ({ isOpen, toggle }) => {
       </ModalBody>
     </Modal>
   );
-};
+}
 
 export default ModalLogin;
