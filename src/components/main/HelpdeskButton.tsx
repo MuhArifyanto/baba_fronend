@@ -3,7 +3,7 @@ import React from 'react';
 import Swal from 'sweetalert2';
 import '../../assets/style.css'; // Import file CSS untuk animasi
 
-const HelpdeskButton: React.FC = () => {
+function HelpdeskButton(){
   const handleClick = () => {
     Swal.fire({
       title: 'Anda membutuhkan layanan helpdesk?',

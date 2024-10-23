@@ -6,7 +6,7 @@ import ModalLogin from '../modal/ModalLogin';
 import '../../assets/style.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const Menu: React.FC = () => {
+const Menu= () => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
 

@@ -1,28 +1,14 @@
-// import ListGroup from "./components/ListGroup";
-
-// function App() {
-//   return <div><ListGroup /></div>
-// }
-
-// export default App;
-
-// src/App.tsx
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import HomePage from './components/page/public/HomePage';
-import HelpdeskButton from './components/main/HelpdeskButton';
-import ChatHelpdesk from './components/page/public/ChatHelpdesk';
+import { BrowserRouter as Router } from 'react-router-dom';
+
+import LandingRoutes from './routes/LandingRoute';
 
 function App(){
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/helpdesk" element={<ChatHelpdesk />} />
-      </Routes>
-      <HelpdeskButton/>
+    <LandingRoutes/>
     </Router>
   );
-};
+}
 
 export default App;

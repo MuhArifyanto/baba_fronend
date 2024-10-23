@@ -4,7 +4,6 @@ import Layout from '../../main/Layout';
 import {
   Typography,
   Button,
-  Grid,
   Table,
   TableBody,
   TableCell,
@@ -15,8 +14,9 @@ import {
   Card,
   CardContent,
 } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 
-const HomePage: React.FC = () => {
+function HomePage() {
   const tiketData = [
     { no: 1, tiket: 'T2024100228', tanggal: '14 Oct 2024', pemohon: 'APLIKASI', kategori: 'APLIKASI', status: 'TIDAK DISETUJUI' },
     { no: 2, tiket: 'T2024100227', tanggal: '08 Oct 2024', pemohon: 'Disdukcapil', kategori: 'APLIKASI', status: 'DISETUJUI' },
@@ -29,7 +29,7 @@ const HomePage: React.FC = () => {
     <Layout>
       {/* Hero Section */}
       <Grid container spacing={2} alignItems="center" justifyContent="center" sx={{ my: 5 }}>
-        <Grid item xs={12} md={6}>
+        <Grid size={6}>
           <Typography variant="h3" gutterBottom>
             BEKASI BIKIN APLIKASI
           </Typography>
@@ -40,7 +40,7 @@ const HomePage: React.FC = () => {
             Lihat Layanan
           </Button>
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid size={6}>
           <img
             // src="https://via.placeholder.com/500x300"
             src="/img/hero-img.png"
@@ -87,7 +87,7 @@ const HomePage: React.FC = () => {
       </Typography>
       <Grid container spacing={3} justifyContent="center" sx={{ mb: 5 }}>
         {layananList.map((layanan) => (
-          <Grid item xs={12} md={3} key={layanan}>
+          <Grid size={3} key={layanan}>
             <Card>
               <CardContent>
                 <Typography variant="h6" align="center">

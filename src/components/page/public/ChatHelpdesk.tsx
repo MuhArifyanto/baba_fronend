@@ -39,7 +39,7 @@ const faqData = [
   }
 ];
 
-const ChatHelpdesk: React.FC = () => {
+const ChatHelpdesk = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [faqSelected, setFaqSelected] = useState(false);

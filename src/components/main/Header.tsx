@@ -4,7 +4,7 @@ import { AppBar, Toolbar, Container, Typography } from '@mui/material';
 import Menu from './Menu';
 import '../../assets/style.css'
 
-const Header: React.FC = () => {
+const Header = () => {
   return (
     <AppBar position="sticky" className="bg-color-baba">
       <Container>
