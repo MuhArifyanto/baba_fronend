@@ -117,3 +117,54 @@
 .login-button:hover {
   background-color: #0056b3; /* Warna latar belakang saat hover */
 }
+
+/* src/components/NotFoundPage.css */
+
+.not-found-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f8f8f8;
+  text-align: center;
+}
+
+.not-found-wrapper .title {
+  font-size: 8rem;
+  color: #37517e;
+  margin-bottom: 1rem;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.not-found-wrapper .subtitle {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 2rem;
+}
+
+.not-found-wrapper .back-button {
+  background-color: #37517e;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.not-found-wrapper .back-button:hover {
+  background-color: #e65b50;
+}

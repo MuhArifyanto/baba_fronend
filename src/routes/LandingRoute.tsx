@@ -1,14 +1,20 @@
-import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import HomePage from '../components/page/public/HomePage';
+import HomePage from '../components/page/public/HomePage/index';
 import ChatHelpdesk from '../components/page/public/ChatHelpdesk';
 
-const LandingRoutes = () => {
+
+function LandingRoutes(){
+  const PublicRoutes = [
+    {path: "/",element: <HomePage />,},
+    {path: "/helpdesk",element: <ChatHelpdesk />,},
+  ];
+
   return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/helpdesk" element={<ChatHelpdesk />} />
-    </Routes>
+    <>
+      {PublicRoutes.map((route, index) => (
+        <Route key={index} path={route.path} element={route.element} />
+      ))}
+    </>
   );
 };
 

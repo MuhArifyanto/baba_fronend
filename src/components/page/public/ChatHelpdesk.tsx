@@ -114,8 +114,7 @@ const ChatHelpdesk = () => {
   return (
     <Layout>
       <div className="chat-container">
-        <h2 className="text-center">Helpdesk Chat</h2>
-        
+        <h2 className="text-center">Helpdesk Chat</h2>        
         {/* Tampilkan FAQ jika belum ada yang dipilih */}
         {!faqSelected ? (
           <div className="faq-container">
