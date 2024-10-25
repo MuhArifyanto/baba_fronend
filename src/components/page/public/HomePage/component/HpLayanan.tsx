@@ -11,9 +11,9 @@ const HpLayanan = ({ layananList }: LayananSectionProps) => {
       <Typography variant="h4" align="center" gutterBottom>
         LAYANAN
       </Typography>
-      <Grid container spacing={3} justifyContent="center" sx={{ mb: 5 }}>
+      <Grid container spacing={3} columns={12} sx={{ flexGrow: 1 }}>
         {layananList.map((layanan) => (
-          <Grid size={3} key={layanan}>
+          <Grid size={{ xs: 6, md: 3 }}  key={layanan}>
             <Card>
               <CardContent>
                 <Typography variant="h6" align="center">
