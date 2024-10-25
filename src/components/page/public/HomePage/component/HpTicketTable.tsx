@@ -9,8 +9,12 @@ import {
   TableRow,
   Paper,
   TextField,
+  InputAdornment,
+
 } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 import ReactPaginate from 'react-paginate';
+import Grid  from '@mui/material/Grid2';
 
 type Tiket = {
     no: number;
@@ -52,13 +56,25 @@ const HpTicketTable = ({ tiketData, rowsPerPage }: TicketTableProps) => {
         <Typography variant="h4" align="center" gutterBottom>
             STATUS TIKET
         </Typography>
-        <TextField
-            label="Cari Tiket"
-            variant="outlined"
-            value={searchTerm}
-            onChange={handleSearchChange}
-            sx={{ mb: 3, width: '100%' }}
-        />
+        <Grid container spacing={2} columns={12}>
+            <Grid size={{xs:6, md:3}} offset={{xs:'auto', md: 'auto' }}>
+                <TextField
+                    label="Cari Tiket"
+                    variant="outlined"
+                    value={searchTerm}
+                    size='small'
+                    onChange={handleSearchChange}
+                    sx={{ mb: 3, width: '100%' }}
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                            <SearchIcon />
+                            </InputAdornment>
+                        ),
+                    }}
+                />
+            </Grid>
+        </Grid>
         <TableContainer component={Paper} sx={{ mb: 5 }}>
             <Table>
             <TableHead>
