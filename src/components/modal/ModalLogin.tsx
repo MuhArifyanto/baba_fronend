@@ -30,17 +30,6 @@ function ModalLogin(props: ModalLoginProps) {
     const newCaptcha = generateRandomString(6);
     setCaptchaText(newCaptcha);
     setCaptchaInput('');
-    Swal.fire({
-      icon: 'info',
-      title: 'Captcha telah di-refresh!',
-      timer: 1500,
-      showConfirmButton: false,
-      toast: true,
-      position: 'top-end',
-      customClass: {
-        popup: 'my-swal-toast',
-      },
-    });
   };
 
   const handleLogin = (e: React.FormEvent) => {
@@ -57,6 +46,7 @@ function ModalLogin(props: ModalLoginProps) {
         text: 'Silakan coba lagi.',
         confirmButtonText: 'OK',
       });
+      refreshCaptcha();
       return;
     }
 
