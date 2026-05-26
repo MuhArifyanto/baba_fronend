@@ -1,0 +1,170 @@
+.helpdesk-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 150px;
+    height: 60px;
+    border-radius: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s;
+    animation: float 3s infinite ease-in-out;
+  }
+  
+.helpdesk-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.3);
+}
+
+.helpdesk-icon {
+  width: 90%;
+}
+
+/* Animasi floating */
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f8f9fa;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.chat-box {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.user-message {
+  text-align: right;
+  background-color: #007bff;
+  color: white;
+  border-radius: 10px;
+  margin: 5px 0;
+  padding: 10px;
+}
+
+.helpdesk-message {
+  text-align: left;
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  margin: 5px 0;
+  padding: 10px;
+}
+
+.chat-input {
+  margin-top: 10px;
+}
+
+.my-swal-toast {
+  margin-top: 60px !important; 
+}
+
+.bg-color-baba {
+  background-color: #37517e !important; 
+  color: #ffffff; 
+}
+
+.bg-color-menu {
+  background-color: #4d51573d !important; 
+  color: #ffffff; 
+}
+
+
+.list-item-button {
+  transition: background-color 0.3s ease; /* Menambahkan efek transisi */
+  color: #37517e !important;
+}
+
+.list-item-button:hover {
+  background-color: rgba(0, 0, 0, 0.08); /* Ganti dengan warna hover yang diinginkan */
+}
+
+.login-button {
+  background-color: #007bff; /* Warna latar belakang tombol */
+  color: white; /* Warna teks tombol */
+  border: none; /* Menghapus border default */
+  border-radius: 4px; /* Membuat sudut tombol melengkung */
+  padding: 10px 20px; /* Menambahkan padding untuk ukuran tombol */
+  text-align: center; /* Menyusun teks di tengah */
+  font-weight: bold; /* Menebalkan teks */
+  cursor: pointer; /* Mengubah kursor saat hover */
+  width: 100%; /* Mengatur lebar tombol agar mengisi ruang */
+}
+
+.login-button:hover {
+  background-color: #0056b3; /* Warna latar belakang saat hover */
+}
+
+/* src/components/NotFoundPage.css */
+
+.not-found-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f8f8f8;
+  text-align: center;
+}
+
+.not-found-wrapper .title {
+  font-size: 8rem;
+  color: #37517e;
+  margin-bottom: 1rem;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.not-found-wrapper .subtitle {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 2rem;
+}
+
+.not-found-wrapper .back-button {
+  background-color: #37517e;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.not-found-wrapper .back-button:hover {
+  background-color: #e65b50;
+}
